@@ -1,0 +1,22 @@
+{
+  "name": "grunt-protractor-coverage-example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.11.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-express-server": "^0.4.19",
+    "grunt-istanbul": "^0.4.0",
+    "grunt-protractor-coverage": "^0.2.13",
+    "grunt-protractor-runner": "^1.2.1",
+    "load-grunt-tasks": "^3.1.0",
+    "protractor": "^1.6.1"
+  }
+}
