@@ -6,7 +6,8 @@ module.exports = function(grunt) {
 
     express: {
       options: {
-        port: 9000
+        port: 9000,
+        base: 'instrumented'
       },
       cov: {
         options: {
@@ -38,49 +39,51 @@ module.exports = function(grunt) {
       // files: ['src/*.js', 'app/scripts/**/*.js'],
       files: ['src/file1.js'],
       options: {
-        lazy: false,
+        // lazy: false,
+        lazy: true,
         basePath: 'instrumented'
-      }
-    },
-
-    makeReport: {
-      src: 'instrumented/*.json',
-      options: {
-        type: 'html',
-        dir: 'reports/',
-        print: 'detail'
-        //        type: 'lcov',
-        //        dir: 'reports',
-        //        print: 'detail'
       }
     },
 
 
     protractor_coverage: {
       options: {
-        configFile: 'protractorConf.js', // Default config file
-        keepAlive: true, // If false, the grunt process stops when the test fails.
-        noColor: false, // If true, protractor will not use colors in its output.
+        configFile: 'protractor.conf.js',
+        keepAlive: true,
+        noColor: false,
         coverageDir: 'instrumented',
-        args: {}
       },
-      chrome: {
+      local: {
         options: {
           args: {
             baseUrl: 'http://localhost:3000/',
-            // Arguments passed to the command
             'browser': 'chrome'
           }
         }
-      },
+      }
     },
+    
+
+    makeReport: {
+      src: 'instrumented/*.json',
+      options: {
+        type: 'html',
+        dir: 'reports/',
+        // print: 'detail'
+        //        type: 'lcov',
+        //        dir: 'reports',
+        //        print: 'detail'
+      }
+    },
+
   });
 
   grunt.registerTask('default', [
-    'copy:cov',
-    'instrument',
-    'express:cov',
-    'protractor_coverage:chrome',
-    'makeReport'
+    // 'copy:cov',
+    // 'instrument',
+    // 'express:cov',
+    'protractor_coverage:local',
+    // 'protractor_coverage',
+    // 'makeReport'
   ]);
 };
