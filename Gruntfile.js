@@ -4,25 +4,26 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-    express: {
-      options: {
-        port: 9000,
-        base: 'instrumented'
-      },
-      cov: {
-        options: {
-          script: 'instrumented/src/file1.js',
-          debug: true
-        }
-      },
-    },
-    open: {
-      server: {
-        url: 'http://localhost:9000'
-      }
-    },
+    // express: {
+    //   options: {
+    //     port: 9000,
+    //     // hostname: 'localhost',
+    //     base: 'instrumented',
+    //   },
+    //   cov: {
+    //     options: {
+    //       script: 'instrumented/src/file1.js',
+    //       debug: true
+    //     }
+    //   },
+    // },
+    // open: {
+    //   server: {
+    //     url: 'http://localhost:9000'
+    //   }
+    // },
 
-  
+
     copy: {
       cov: {
         files: [{
@@ -34,13 +35,21 @@ module.exports = function(grunt) {
       }
     },
 
+    connect: {
+      server: {
+        options: {
+          port: 3000,
+          base: 'instrumented'
+        }
+      },
+    },
+
     // start - code coverage settings
     instrument: {
-      // files: ['src/*.js', 'app/scripts/**/*.js'],
       files: ['src/file1.js'],
       options: {
-        // lazy: false,
-        lazy: true,
+        lazy: false,
+        // lazy: true,
         basePath: 'instrumented'
       }
     },
@@ -52,17 +61,20 @@ module.exports = function(grunt) {
         keepAlive: true,
         noColor: false,
         coverageDir: 'instrumented',
+        args:{
+        }
       },
       local: {
         options: {
           args: {
-            baseUrl: 'http://localhost:3000/',
-            'browser': 'chrome'
+            'baseUrl': 'http://localhost:9000/',
+            // 'browser': 'chrome',
+            // 'specs': ['spec/file1.test.js'],
           }
         }
       }
     },
-    
+
 
     makeReport: {
       src: 'instrumented/*.json',
@@ -79,11 +91,14 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
-    // 'copy:cov',
-    // 'instrument',
-    // 'express:cov',
+    'copy:cov',
+    'instrument',
+    'connect',
     'protractor_coverage:local',
-    // 'protractor_coverage',
-    // 'makeReport'
+    'makeReport'
+  ]);
+
+  grunt.registerTask('pc', [
+    // 'protractor_coverage:local',
   ]);
 };

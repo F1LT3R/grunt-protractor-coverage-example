@@ -1,12 +1,11 @@
 exports.config = {
     // seleniumAddress: 'http://localhost:4444/wd/hub',
-    seleniumAddress: 'http://localhost:4444/wd/hub',
-    capabilities: {
-        'browserName': 'chrome'
-    },
+    // capabilities: {
+    //     'browserName': 'chrome'
+    // },
     specs: ['spec/file1.test.js'],
-    seleniumPort: 3010,
-    baseUrl: 'http://localhost:9000/',
+    // seleniumPort: 3010,
+    // baseUrl: 'http://localhost:3000/',
 };
 
 // // A reference configuration file.
